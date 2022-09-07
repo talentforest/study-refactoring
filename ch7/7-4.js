@@ -6,10 +6,18 @@ class Order {
     this.#item = item;
   }
 
+  get basePrice() {
+    return this.#quantity * this.#item.price;
+  }
+
+  get discountFactor() {
+    return this.basePrice > 1000 ? 0.95 : 0.98;
+  }
+
   get price() {
-    const basePrice = this.#quantity * this.#item.price;
-    const discountFactor = 0.98;
-    if (basePrice > 1000) discountFactor -= 0.03;
-    return basePrice * discountFactor;
+    return this.basePrice * this.discountFactor;
   }
 }
+
+const a = new Order(3, { item: "coffee", price: 3000 });
+console.log(a.price);
