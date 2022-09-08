@@ -1,13 +1,29 @@
 class Person {
   #name;
   #department;
-  constructor(name, department) {
+  constructor(name, manager, chargeCode) {
     this.#name = name;
-    this.#department = department;
+    this.#department = new Department(manager, chargeCode);
   }
 
   get name() {
     return this.#name;
+  }
+
+  get manager() {
+    return this.#department.manager;
+  }
+
+  set manager(arg) {
+    this.#department.manager = arg;
+  }
+
+  get chargeCode() {
+    return this.#department.chargeCode;
+  }
+
+  set chargeCode(arg) {
+    this.#department.chargeCode = arg;
   }
 
   get department() {
@@ -27,14 +43,6 @@ export class Department {
     this.#chargeCode = chargeCode;
   }
 
-  get chargeCode() {
-    return this.#chargeCode;
-  }
-
-  set chargeCode(arg) {
-    this.#chargeCode = arg;
-  }
-
   get manager() {
     return this.#manager;
   }
@@ -42,9 +50,23 @@ export class Department {
   set manager(arg) {
     this.#manager = arg;
   }
+
+  get chargeCode() {
+    return this.#chargeCode;
+  }
+
+  set chargeCode(arg) {
+    this.#chargeCode = arg;
+  }
 }
 
-const person = new Person('Tom', new Department('aManager', '999'));
+const person = new Person("Tom", "aManager", "999");
+
 console.log(person.name);
-console.log(person.department.manager);
-console.log(person.department.chargeCode);
+console.log(person.manager);
+console.log(person.chargeCode);
+
+person.manager = "bManager";
+person.chargeCode = "111";
+console.log(person.manager);
+console.log(person.chargeCode);
