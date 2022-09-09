@@ -1,42 +1,35 @@
 export function trackSummary(points) {
-  const totalTime = calculateTime();
-  const totalDistance = calculateDistance();
-  const pace = totalTime / 60 / totalDistance;
-  return {
-    time: totalTime,
-    distance: totalDistance,
-    pace: pace,
-  };
+  const time = 10000;
+  const distance = calculateDistance(points);
+  const pace = time / 60 / distance;
+  return { time, distance, pace };
+}
 
-  function calculateDistance() {
-    let result = 0;
-    for (let i = 1; i < points.length; i++) {
-      result += distance(points[i - 1], points[i]);
-    }
-    return result;
+function calculateDistance(points) {
+  let result = 0;
+  for (let i = 1; i < points.length; i++) {
+    result += distance(points[i - 1], points[i]);
   }
+  return result;
+}
 
-  function distance(p1, p2) {
-    // 포뮬라: http://www.movable-type.co.uk/scripts/latlong.html
-    const EARTH_RADIUS = 3959; // in miles
-    const dLat = radians(p2.lat) - radians(p1.lat);
-    const dLon = radians(p2.lon) - radians(p1.lon);
-    const a =
-      Math.pow(Math.sin(dLat / 2), 2) +
-      Math.cos(radians(p2.lat)) *
-        Math.cos(radians(p1.lat)) *
-        Math.pow(Math.sin(dLon / 2), 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return EARTH_RADIUS * c;
-  }
+function distance(place1, place2) {
+  // 포뮬라: http://www.movable-type.co.uk/scripts/latlong.html
+  const EARTH_RADIUS = 3959; // in miles
+  const dLat = radians(place2.lat) - radians(place1.lat);
+  const dLon = radians(place2.lon) - radians(place1.lon);
 
-  function radians(degrees) {
-    return (degrees * Math.PI) / 180;
-  }
+  const a =
+    Math.pow(Math.sin(dLat / 2), 2) +
+    Math.cos(radians(place2.lat)) *
+      Math.cos(radians(place1.lat)) *
+      Math.pow(Math.sin(dLon / 2), 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return EARTH_RADIUS * c;
+}
 
-  function calculateTime() {
-    return 10000;
-  }
+function radians(degrees) {
+  return (degrees * Math.PI) / 180;
 }
 
 const newYork = {
