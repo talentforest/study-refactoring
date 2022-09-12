@@ -12,6 +12,20 @@ export class Employee {
   }
 
   static get legalTypeCodes() {
-    return { E: 'Engineer', M: 'Manager', S: 'Salesman' };
+    return { E: "Engineer", M: "Manager", S: "Salesman" };
+  }
+
+  static createEngineer() {
+    return new Employee(name, "E");
+  }
+
+  static createSeniorEngineer() {
+    return new Employee(name, "SE");
+  }
+
+  static createMarketer() {
+    return new Employee(name, "M");
   }
 }
+
+const employee = Employee.createEngineer("젤리");
